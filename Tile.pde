@@ -9,8 +9,19 @@ class Tile
 {
   final Color IDLE = new Color(255, 185, 0);
   final Color HOVER = new Color(255, 230, 0);
-  final Color OPENED = new Color(0, 255, 0);
+  final Color OPENED = new Color(50, 255, 50);
   final Color BOMB = new Color(255, 0, 0);
+  
+  final Color[] VALUES = {
+    new Color(0,  0,  255),  // 1
+    new Color(0,  150,0),    // 2
+    new Color(135,0,  0),    // 3
+    new Color(0,  0,  40),   // 4
+    new Color(40, 0, 15),    // 5
+    new Color(70, 0, 95),    // 6
+    new Color(60),           // 7
+    new Color(0),            // 8
+  };
   
   final float STROKE_WEIGHT = 2;
   
@@ -54,9 +65,12 @@ class Tile
   {
     if(!bomb)
     {
-      stroke(255);
-      fill(255);
-      text(val, pos.x+size*.5f, pos.y+size*.5f);
+      stroke(0);
+      Color col = VALUES[val-1];
+      fill(col.R, col.G, col.B, col.A);
+      textSize(size*.5f);
+      textAlign(CENTER);
+      text(val, (pos.x+size*.5f), (pos.y+size*.7f));  // Why .7 works? IDFK...
     }
   }
   
