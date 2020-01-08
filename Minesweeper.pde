@@ -10,5 +10,5 @@ void draw()
 {
   background(0);
   grid.Display(); //<>//
-  smooth();
+  //smooth();
 }

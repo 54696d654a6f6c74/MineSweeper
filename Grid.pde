@@ -28,6 +28,17 @@ class Grid
       {
         float xPos = (x * tileSize);
         float yPos = (y * tileSize);
+        if((wider && !swapped) || (!wider && swapped))
+        {
+          xPos += offset;
+          yPos += BUFFER;
+        }
+        else if((!wider && !swapped) || (wider && swapped))
+        {
+          xPos += BUFFER;
+          yPos += offset;
+        }
+        
         grid[y][x] = new Tile(xPos, yPos, tileSize);
       }
     }
@@ -36,14 +47,7 @@ class Grid
   public void Display() //<>//
   {
     pushMatrix();
-    fill(255);
-    stroke(0);
-    strokeWeight(3);
     
-    if((wider && !swapped) || (!wider && swapped))
-      translate(offset, BUFFER);
-    else if((!wider && !swapped) || (wider && swapped))
-      translate(BUFFER, offset);
     
     for(int y = 0; y < h; y++)
     {
