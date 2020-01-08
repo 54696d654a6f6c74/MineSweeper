@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 int gridWidth = 15;
 int gridHeight = 15;
-int mines = 15;
+int mines = 50;
 
 Grid grid;
 

@@ -52,7 +52,12 @@ class Tile
   
   void ShowVal()
   {
-    
+    if(!bomb)
+    {
+      stroke(255);
+      fill(255);
+      text(val, pos.x+size*.5f, pos.y+size*.5f);
+    }
   }
   
   void ShowFlag()
@@ -97,7 +102,28 @@ class Tile
   
   public void Open()
   {
+    state = State.Opened;  // Expand this so it works propery!
+    for(Tile n : neighbours)
+    {
+      if(n.val == 0 && !n.bomb && n.state != State.Opened)
+      {
+        n.openZeroTile();
+      }
+    }
+  }
+  
+  protected void openZeroTile()
+  {
     state = State.Opened;
+    for(Tile n : neighbours)
+    {
+      if(!n.bomb && n.state != State.Opened)
+      {
+        if(n.val == 0)
+          n.openZeroTile();
+        else n.Open();
+      }
+    }
   }
   
   public void Flag()
