@@ -1,23 +1,16 @@
 enum State
 {
-  Closed,
+  Idle,
   Opened,
   Flagged,
 }
 
 class Tile
 {
-  final float CLOSED_R = 255;
-  final float CLOSED_G = 185;
-  final float CLOSED_B = 0;
-  
-  final float HOVER_R = 255;
-  final float HOVER_G = 230;
-  final float HOVER_B = 0;
-  
-  final float OPENED_R = 0;
-  final float OPENED_G = 255;
-  final float OPENED_B = 0;
+  final Color IDLE = new Color(255, 185, 0);
+  final Color HOVER = new Color(255, 230, 0);
+  final Color OPENED = new Color(0, 255, 0);
+  final Color BOMB = new Color(255, 0, 0);
   
   final float STROKE_WEIGHT = 2;
   
@@ -26,7 +19,7 @@ class Tile
   float size;
   
   boolean bomb = false;
-  State state = State.Closed;
+  State state = State.Idle;
   
   boolean highlighted = false;
   
@@ -34,6 +27,7 @@ class Tile
   
   Tile(float x, float y, float tileSize)
   {
+    
     size = tileSize;
     pos = new PVector(x, y);
   }
@@ -46,7 +40,7 @@ class Tile
   public void Display()
   {
     ShowBox(); //<>//
-    if(state == State.Opened)
+    if(state == State.Opened && val > 0)
     {
       ShowVal();
     }
@@ -63,7 +57,8 @@ class Tile
   
   void ShowFlag()
   {
-    
+    line(pos.x, pos.y, pos.x+size, pos.y+size);
+    line(pos.x+size, pos.y, pos.x, pos.y+size);
   }
   
   void ShowBox()
@@ -72,11 +67,14 @@ class Tile
     strokeWeight(STROKE_WEIGHT);
     checkMouse();
     if(highlighted)
-      fill(HOVER_R, HOVER_G, HOVER_B);
-    else fill(CLOSED_R, CLOSED_G, CLOSED_B);
+      fill(HOVER.R, HOVER.G, HOVER.B);
+    else fill(IDLE.R, IDLE.G, IDLE.B);
     
     if(state == State.Opened)
-      fill(OPENED_R, OPENED_G, OPENED_B);
+      if(!bomb)
+        fill(OPENED.R, OPENED.G, OPENED.B);
+      else fill(255, 0, 0);
+      
     rect(pos.x, pos.y, size, size);
   }
   
@@ -100,6 +98,14 @@ class Tile
   public void Open()
   {
     state = State.Opened;
+  }
+  
+  public void Flag()
+  {
+    if(state == State.Idle)
+      state = State.Flagged;
+    else if(state == State.Flagged)
+      state = State.Idle;
   }
   
   public void CalcValue()

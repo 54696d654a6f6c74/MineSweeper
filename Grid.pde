@@ -5,15 +5,16 @@ class Grid
   Tile[][] grid;
   Tile highlighed;
   
-  int w, h;
+  int w, h, mineCount;
   boolean wider;
   boolean swapped = false; // if one screen is wider but grid was too big to fit in it
   float offset;
   
-  Grid(int w, int h)
+  Grid(int w, int h, int mines)
   {
     this.w = w;
     this.h = h;
+    mineCount = mines;
     grid = new Tile[h][w];
     
     if(width > height)
@@ -43,7 +44,7 @@ class Grid
       }
     }
     
-    // Setting it as a bomb come ssomewhere in here
+    addMinesAtRandom();
     
     for(int y = 0; y < h; y++)
     {
@@ -155,5 +156,27 @@ class Grid
     }
     
     return neighbours;
+  }
+  
+  void addMinesAtRandom()
+  {
+    ArrayList<Tile> allTiles = new ArrayList<Tile>();
+    for (int y = 0; y < h; y++)
+    {
+      for(int x = 0; x < w; x++)
+      {
+        allTiles.add(grid[y][x]);
+      }
+    }
+    
+    int count = mineCount;
+    while (count > 0)
+    {
+      int index = floor(random(0, allTiles.size()));
+      allTiles.get(index).bomb = true;
+      allTiles.remove(index);
+      
+      count--;
+    }
   }
 }
