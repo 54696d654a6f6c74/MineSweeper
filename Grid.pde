@@ -3,6 +3,7 @@ class Grid
   final float BUFFER = 20; // pixels to buffer from closest edges
  
   Tile[][] grid;
+  Tile highlighed;
   
   int w, h;
   boolean wider;
@@ -38,8 +39,19 @@ class Grid
           xPos += BUFFER;
           yPos += offset;
         }
-        
         grid[y][x] = new Tile(xPos, yPos, tileSize);
+      }
+    }
+    
+    // Setting it as a bomb come ssomewhere in here
+    
+    for(int y = 0; y < h; y++)
+    {
+      for(int x = 0; x < w; x++)
+      {
+        ArrayList<Tile> neighbours = getNeighbours(x, y);
+        grid[y][x].InitNeighbours(neighbours.toArray(new Tile[neighbours.size()]));
+        grid[y][x].CalcValue();
       }
     }
   }
@@ -47,13 +59,13 @@ class Grid
   public void Display() //<>//
   {
     pushMatrix();
-    
-    
     for(int y = 0; y < h; y++)
     {
       for(int x = 0; x < w; x++)
       {
         grid[y][x].Display(); //<>//
+        if(grid[y][x].highlighted)
+          highlighed = grid[y][x];
       }
     }
     popMatrix();
@@ -103,5 +115,45 @@ class Grid
       swapped = true;
       return sizeByHeight;
     }
+  }
+  
+  ArrayList<Tile> getNeighbours(int x, int y)
+  {
+    PVector[] arr = 
+    {
+      new PVector(x-1, y  ),
+      new PVector(x+1, y  ),
+      new PVector(x  , y-1),
+      new PVector(x  , y+1),
+      new PVector(x-1, y+1),
+      new PVector(x-1, y-1),
+      new PVector(x+1, y+1),
+      new PVector(x+1, y-1)
+    };
+    
+    ArrayList<PVector> neighbourIndecies = new ArrayList<PVector>();
+    neighbourIndecies.addAll(Arrays.asList(arr));
+    
+    for(PVector n : arr)
+    {
+      if(n.x < 0 || n.y < 0)
+      {
+        neighbourIndecies.remove(n);
+        continue;
+      }
+      if(n.x >= w || n.y >= h)
+      {
+        neighbourIndecies.remove(n);
+        continue;
+      }
+    }
+    
+    ArrayList<Tile> neighbours = new ArrayList<Tile>();
+    for(PVector pv : neighbourIndecies)
+    {
+      neighbours.add(grid[floor(pv.y)][floor(pv.x)]);
+    }
+    
+    return neighbours;
   }
 }
