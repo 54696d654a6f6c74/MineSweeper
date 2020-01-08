@@ -72,16 +72,6 @@ class Grid
     popMatrix();
   }
   
-  public void OpenTile(int x, int y)
-  {
-    
-  }
-  
-  void calcValues()
-  {
-    
-  }
-  
   void calcOffset(float tileSize)
   {
     if((wider && !swapped) || (!wider && swapped))
