@@ -70,7 +70,7 @@ class Tile
       fill(col.R, col.G, col.B, col.A);
       textSize(size*.5f);
       textAlign(CENTER);
-      text(val, (pos.x+size*.5f), (pos.y+size*.7f));  // Why .7 works? IDFK...
+      text(""+val, pos.x, pos.y + (size*.5f) * .5f, size, size);
     }
   }
   

@@ -10,6 +10,7 @@ class Grid
   boolean swapped = false; // if one screen is wider but grid was too big to fit in it
   float offset;
   
+  
   Grid(int w, int h, int mines)
   {
     this.w = w;
@@ -60,6 +61,7 @@ class Grid
   public void Display() //<>//
   {
     pushMatrix();
+    highlighed = null;
     for(int y = 0; y < h; y++)
     {
       for(int x = 0; x < w; x++)
@@ -155,7 +157,8 @@ class Grid
     {
       for(int x = 0; x < w; x++)
       {
-        allTiles.add(grid[y][x]);
+        if(!grid[y][x].bomb)
+          allTiles.add(grid[y][x]);
       }
     }
     
