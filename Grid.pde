@@ -8,8 +8,6 @@ class Grid
   int w, h, mineCount;
   boolean wider;
   boolean swapped = false; // if one screen is wider but grid was too big to fit in it
-  float offset;
-  
   
   Grid(int w, int h, int mines)
   {
@@ -23,8 +21,16 @@ class Grid
     else wider = false;
     
     float tileSize = calcTileSize();
+    float offset = calcOffset(tileSize);
     calcOffset(tileSize);
+    createTile(tileSize, offset);
     
+    addMinesAtRandom();
+    calcTileValue();
+  }
+  
+  void createTile(float tileSize, float offset)
+  {
     for(int y = 0; y < h; y++)
     {
       for(int x = 0; x < w; x++)
@@ -44,9 +50,10 @@ class Grid
         grid[y][x] = new Tile(xPos, yPos, tileSize);
       }
     }
-    
-    addMinesAtRandom();
-    
+  }
+  
+  void calcTileValue()
+  {
     for(int y = 0; y < h; y++)
     {
       for(int x = 0; x < w; x++)
@@ -74,18 +81,22 @@ class Grid
     popMatrix();
   }
   
-  void calcOffset(float tileSize)
+  float calcOffset(float tileSize)
   {
     if((wider && !swapped) || (!wider && swapped))
     {
       float gridWidth = w * tileSize;
-      offset = abs(width - gridWidth) * .5f;
+      float offset = abs(width - gridWidth) * .5f;
+      return offset;
     }
     else if((!wider && !swapped) || (wider && swapped))
     {
       float gridHeight = h * tileSize;
-      offset = abs(height - gridHeight) * .5f;
+      float offset = abs(height - gridHeight) * .5f;
+      return offset;
     }
+    println("Failed to calculate offset, retunring 0");
+    return 0;
   }
   
   float calcTileSize()

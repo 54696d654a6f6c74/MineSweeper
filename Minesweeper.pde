@@ -21,7 +21,7 @@ void draw()
 {
   background(0);
   grid.Display();
-  test.Display();
+  //test.Display();
   smooth();
 }
 

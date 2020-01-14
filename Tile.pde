@@ -76,8 +76,12 @@ class Tile
   
   void ShowFlag()
   {
-    line(pos.x, pos.y, pos.x+size, pos.y+size);
-    line(pos.x+size, pos.y, pos.x, pos.y+size);
+    stroke(200,0,0);
+    float off = size * 0.25f;
+    float size = this.size - off;
+    PVector flagPos = new PVector(pos.x + off, pos.y - off);
+    line(flagPos.x, flagPos.y, flagPos.x+size, flagPos.y+size);
+    line(flagPos.x+size, flagPos.y, flagPos.x, flagPos.y+size);
   }
   
   void ShowBox()
