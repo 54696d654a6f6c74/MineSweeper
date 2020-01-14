@@ -1,8 +1,8 @@
 enum State
 {
-  Idle,
-  Opened,
-  Flagged,
+  IDLE,
+  OPENED,
+  FLAGGED,
 }
 
 class Tile
@@ -30,7 +30,7 @@ class Tile
   float size;
   
   boolean bomb = false;
-  State state = State.Idle;
+  State state = State.IDLE;
   
   boolean highlighted = false;
   
@@ -51,11 +51,11 @@ class Tile
   public void Display()
   {
     ShowBox(); //<>//
-    if(state == State.Opened && val > 0)
+    if(state == State.OPENED && val > 0)
     {
       ShowVal();
     }
-    else if(state == State.Flagged)
+    else if(state == State.FLAGGED)
     {
       ShowFlag();
     }
@@ -77,11 +77,11 @@ class Tile
   void ShowFlag()
   {
     stroke(200,0,0);
-    float off = size * 0.25f;
+    float off = size * 0.2f;
     float size = this.size - off;
-    PVector flagPos = new PVector(pos.x + off, pos.y - off);
-    line(flagPos.x, flagPos.y, flagPos.x+size, flagPos.y+size);
-    line(flagPos.x+size, flagPos.y, flagPos.x, flagPos.y+size);
+    PVector flagPos = new PVector(pos.x + off, pos.y + off);
+    line(flagPos.x, flagPos.y, pos.x+size, pos.y+size);
+    line(pos.x+size, flagPos.y, flagPos.x, pos.y+size);
   }
   
   void ShowBox()
@@ -93,7 +93,7 @@ class Tile
       fill(HOVER.R, HOVER.G, HOVER.B);
     else fill(IDLE.R, IDLE.G, IDLE.B);
     
-    if(state == State.Opened)
+    if(state == State.OPENED)
       if(!bomb)
         fill(OPENED.R, OPENED.G, OPENED.B);
       else fill(255, 0, 0);
@@ -120,10 +120,10 @@ class Tile
   
   public void Open()
   {
-    state = State.Opened;  // Expand this so it works propery!
+    state = State.OPENED;  // Expand this so it works propery!
     for(Tile n : neighbours)
     {
-      if(n.val == 0 && !n.bomb && n.state != State.Opened)
+      if(n.val == 0 && !n.bomb && n.state != State.OPENED)
       {
         n.openZeroTile();
       }
@@ -132,10 +132,10 @@ class Tile
   
   protected void openZeroTile()
   {
-    state = State.Opened;
+    state = State.OPENED;
     for(Tile n : neighbours)
     {
-      if(!n.bomb && n.state != State.Opened)
+      if(!n.bomb && n.state != State.OPENED)
       {
         if(n.val == 0)
           n.openZeroTile();
@@ -146,10 +146,10 @@ class Tile
   
   public void Flag()
   {
-    if(state == State.Idle)
-      state = State.Flagged;
-    else if(state == State.Flagged)
-      state = State.Idle;
+    if(state == State.IDLE)
+      state = State.FLAGGED;
+    else if(state == State.FLAGGED)
+      state = State.IDLE;
   }
   
   public void CalcValue()

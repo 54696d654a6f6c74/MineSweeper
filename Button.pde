@@ -1,5 +1,8 @@
 class Button
 {
+  Color idleColor;
+  Color highlightedColor;
+  
   PVector pos;
   float w, h;
   String text;
@@ -48,5 +51,32 @@ class Button
   public void Click()
   {
     print("Button clicked");
+  }
+}
+
+class RestartButton extends Button
+{
+  RestartButton(float x, float y, float w, float h, String text)
+  {
+    super(x, y, w, h, text);
+    
+  }
+  
+  public void Click()
+  {
+    // Restart the game
+  }
+}
+
+class PlayButton extends Button
+{
+  PlayButton(float x, float y, float w, float h, String text)
+  {
+    super(x, y, w, h, text);
+  }
+  
+  public void Click()
+  {
+    gm.GameStart();
   }
 }

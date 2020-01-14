@@ -8,12 +8,13 @@ enum GameState
 
 class GameManager
 {
-  GameState gameState;
-  
-  Grid gameGrid;
   int gridWidth = 20;
   int gridHeight = 20;
   int mineCount = 50;
+  
+  GameState gameState;
+  
+  Grid gameGrid;
   
   Button restartButton;
   Button playButtonField;
@@ -23,7 +24,7 @@ class GameManager
   
   GameManager()
   {
-    
+    gameState = GameState.MAIN_MENU;
   }
   
   public void Update()
@@ -64,12 +65,23 @@ class GameManager
   
   void DisplayMenu()
   {
-    
+    playButtonField.Display();
+    gridWidthField.Display();
+    gridHeightField.Display();
+    mineCountField.Display();
   }
   
-  void CreateGrid()
+  void CreateGrid(boolean withMines)
   {
-    gameGrid = new Grid(gridWidth, gridHeight, mineCount);
+    if(withMines)
+      gameGrid = new Grid(gridWidth, gridHeight, mineCount);
+    else gameGrid = new Grid(gridWidth, gridHeight);
+  }
+  
+  public void GameStart()
+  {
+    CreateGrid(false);
+    gameState = GameState.GAME;
   }
   
   boolean Won(Tile[][] grid, int totalBombs)
@@ -81,9 +93,9 @@ class GameManager
     {
       for(int x = 0; x < gridWidth; x++)
       {
-        if(grid[y][x].state != State.Opened && !grid[y][x].bomb)
+        if(grid[y][x].state != State.OPENED && !grid[y][x].bomb)
           countUnopened++;
-        if(grid[y][x].state == State.Flagged && grid[y][x].bomb)
+        if(grid[y][x].state == State.FLAGGED && grid[y][x].bomb)
           countFlagged++;
       }
     }

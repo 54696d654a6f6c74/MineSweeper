@@ -9,7 +9,7 @@ class Grid
   boolean wider;
   boolean swapped = false; // if one screen is wider but grid was too big to fit in it
   
-  Grid(int w, int h, int mines)
+  Grid(int w, int h)
   {
     this.w = w;
     this.h = h;
@@ -24,8 +24,12 @@ class Grid
     float offset = calcOffset(tileSize);
     calcOffset(tileSize);
     createTile(tileSize, offset);
-    
-    addMinesAtRandom();
+  }
+  
+  Grid(int w, int h, int mines)
+  {
+    this(w, h);
+    addMinesAtRandom(mines);
     calcTileValue();
   }
   
@@ -49,6 +53,29 @@ class Grid
         }
         grid[y][x] = new Tile(xPos, yPos, tileSize);
       }
+    }
+  }
+  
+  void addMinesAtRandom(int mineCount)
+  {
+    ArrayList<Tile> allTiles = new ArrayList<Tile>();
+    for (int y = 0; y < h; y++)
+    {
+      for(int x = 0; x < w; x++)
+      {
+        if(!grid[y][x].bomb)
+          allTiles.add(grid[y][x]);
+      }
+    }
+    
+    int count = mineCount;
+    while (count > 0)
+    {
+      int index = floor(random(0, allTiles.size()));
+      allTiles.get(index).bomb = true;
+      allTiles.remove(index);
+      
+      count--;
     }
   }
   
@@ -161,26 +188,5 @@ class Grid
     return neighbours;
   }
   
-  void addMinesAtRandom()
-  {
-    ArrayList<Tile> allTiles = new ArrayList<Tile>();
-    for (int y = 0; y < h; y++)
-    {
-      for(int x = 0; x < w; x++)
-      {
-        if(!grid[y][x].bomb)
-          allTiles.add(grid[y][x]);
-      }
-    }
-    
-    int count = mineCount;
-    while (count > 0)
-    {
-      int index = floor(random(0, allTiles.size()));
-      allTiles.get(index).bomb = true;
-      allTiles.remove(index);
-      
-      count--;
-    }
-  }
+  
 }

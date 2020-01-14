@@ -17,6 +17,6 @@ class Color
   
   Color(float brightness)
   {
-    this(brightness, brightness, brightness, 255f);
+    this(brightness, brightness, brightness);
   }
 }
