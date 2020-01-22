@@ -17,7 +17,7 @@ class GameManager
   Grid gameGrid;
   
   Button restartButton;
-  Button playButtonField;
+  PlayButton playButton;
   TextField gridWidthField;
   TextField gridHeightField;
   TextField mineCountField;
@@ -25,6 +25,14 @@ class GameManager
   GameManager()
   {
     gameState = GameState.MAIN_MENU;
+    
+    float txtFieldYOff = 50f;
+    float playBtnW = 200f;
+    float playBtnYOff = 60;
+    gridWidthField = new TextField(0, height/2 - txtFieldYOff, width/3, 40f, "Width");
+    gridHeightField = new TextField(width/3, height/2 - txtFieldYOff, width/3, 40f, "Height");
+    mineCountField = new TextField(width - width/3, height/2 - txtFieldYOff, width/3, 40f, "Mines");
+    playButton = new PlayButton(width/2 - playBtnW/2, height / 2 + playBtnYOff, playBtnW, 50, "Play");
   }
   
   public void Update()
@@ -65,7 +73,7 @@ class GameManager
   
   void DisplayMenu()
   {
-    playButtonField.Display();
+    playButton.Display();
     gridWidthField.Display();
     gridHeightField.Display();
     mineCountField.Display();
@@ -80,8 +88,14 @@ class GameManager
   
   public void GameStart()
   {
-    CreateGrid(false);
-    gameState = GameState.GAME;
+    if(gridWidthField.text != "" && gridHeightField.text != "" && mineCountField.text != "")
+    {
+      gridWidth = parseInt(gridWidthField.text);
+      gridHeight = parseInt(gridHeightField.text);
+      mineCount = parseInt(mineCountField.text);
+      CreateGrid(true);
+      gameState = GameState.GAME;
+    }
   }
   
   boolean Won(Tile[][] grid, int totalBombs)

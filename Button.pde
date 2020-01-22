@@ -65,6 +65,7 @@ class RestartButton extends Button
   public void Click()
   {
     // Restart the game
+    gm.Restart();
   }
 }
 

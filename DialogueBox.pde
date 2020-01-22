@@ -5,7 +5,7 @@ class TextField
   final Color BORDER_COL = new Color(255, 100, 0);
   final Color TITLE_COL = new Color(255);
   final Color IDLE_BG_COL = new Color(100);
-  final float BORDER_THICKNESS = 10f;
+  final float BORDER_THICKNESS = 5f;
   
   final int LIMIT = 2;
   
@@ -70,14 +70,17 @@ class TextField
   
   public void KeyTyped()
   {
+    //println(key);    // Fix backsapces
+    
     if(key == ESC || key == ENTER)
     {
       focus = false;
       return;
     }
     
-    if(key == BACKSPACE && text.length() > 0)
+    if(keyCode == java.awt.event.KeyEvent.VK_BACK_SPACE && text.length() > 0)
     {
+      //println("Backspace");
       text = text.substring(0, text.length()-1);
       return;
     }
