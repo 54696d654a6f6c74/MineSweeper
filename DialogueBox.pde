@@ -1,10 +1,10 @@
 class TextField
 {
-  final Color TEXT_COL = new Color(0);
-  final Color BG_COL = new Color(230);
-  final Color BORDER_COL = new Color(255, 100, 0);
-  final Color TITLE_COL = new Color(255);
-  final Color IDLE_BG_COL = new Color(100);
+  final color TEXT_COL = color(0);
+  final color BG_COL = color(230);
+  final color BORDER_COL = color(255, 100, 0);
+  final color TITLE_COL = color(255);
+  final color IDLE_BG_COL = color(100);
   final float BORDER_THICKNESS = 5f;
   
   final int LIMIT = 2;
@@ -53,7 +53,7 @@ class TextField
   
   void drawBorder()
   {
-    stroke(BORDER_COL.R, BORDER_COL.G, BORDER_COL.B, BORDER_COL.A);
+    stroke(BORDER_COL);
     strokeWeight(BORDER_THICKNESS);
     noFill();
     rect(pos.x, pos.y, w, h);
@@ -63,8 +63,8 @@ class TextField
   {
     noStroke();
     if(focus)
-      fill(BG_COL.R, BG_COL.G, BG_COL.B, BG_COL.A);
-    else fill(IDLE_BG_COL.R, IDLE_BG_COL.G, IDLE_BG_COL.B, IDLE_BG_COL.A);
+      fill(BG_COL);
+    else fill(IDLE_BG_COL);
     rect(pos.x, pos.y, w, h);
   }
   
@@ -93,7 +93,7 @@ class TextField
   
   void showTitle()
   {
-    fill(TITLE_COL.R, TITLE_COL.G, TITLE_COL.B, TITLE_COL.A);
+    fill(TITLE_COL);
     textAlign(CORNER);
     textSize(textSize);
     
@@ -103,7 +103,7 @@ class TextField
   
   void showInput()
   {
-    fill(TEXT_COL.R, TEXT_COL.G, TEXT_COL.B, TEXT_COL.A);
+    fill(TEXT_COL);
     textSize(textSize);
     float yOff = textSize;
     text(text, pos.x, pos.y + yOff);

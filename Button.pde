@@ -1,7 +1,8 @@
 class Button
 {
-  Color idleColor;
-  Color highlightedColor;
+  color idleColor = color(255, 185, 0);
+  color highlightedColor = color(255, 230, 0);
+  color textColor = color(245);
   
   PVector pos;
   float w, h;
@@ -37,14 +38,14 @@ class Button
     checkMouse();
     stroke(0);
     if (!highlighted)
-      fill(255);
-    else fill(255, 0, 255);
+      fill(idleColor);
+    else fill(highlightedColor);
     rect(pos.x, pos.y, w, h);
 
     textAlign(CENTER);
-    float fontSize = 20;
+    float fontSize = 25;
     textSize(fontSize);
-    fill(0);
+    fill(textColor);
     text(text, pos.x, pos.y + (h-fontSize) * .5f, w, h);
   }
   

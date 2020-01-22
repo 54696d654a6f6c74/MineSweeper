@@ -1,6 +1,6 @@
 class Grid
 {
-  final float BUFFER = 20; // pixels to buffer from closest edges
+  final float BUFFER = 5; // pixels to buffer from closest edges
  
   Tile[][] grid;
   Tile highlighed;
@@ -92,20 +92,18 @@ class Grid
     }
   }
   
-  public void Display() //<>//
+  public void Display()
   {
-    pushMatrix();
     highlighed = null;
     for(int y = 0; y < h; y++)
     {
       for(int x = 0; x < w; x++)
       {
-        grid[y][x].Display(); //<>//
+        grid[y][x].Display();
         if(grid[y][x].highlighted)
           highlighed = grid[y][x];
       }
     }
-    popMatrix();
   }
   
   float calcOffset(float tileSize)

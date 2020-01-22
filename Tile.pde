@@ -7,20 +7,20 @@ enum State
 
 class Tile
 {
-  final Color IDLE = new Color(255, 185, 0);
-  final Color HOVER = new Color(255, 230, 0);
-  final Color OPENED = new Color(50, 255, 50);
-  final Color BOMB = new Color(255, 0, 0);
+  final color IDLE = color(255, 185, 0);
+  final color HOVER = color(255, 230, 0);
+  final color OPENED = color(50, 255, 50);
+  final color BOMB = color(255, 0, 0);
   
-  final Color[] VALUES = {
-    new Color(0,  0,  255),  // 1
-    new Color(0,  150,0),    // 2
-    new Color(135,0,  0),    // 3
-    new Color(0,  0,  40),   // 4
-    new Color(40, 0, 15),    // 5
-    new Color(70, 0, 95),    // 6
-    new Color(60),           // 7
-    new Color(0),            // 8
+  final color[] VALUES = {
+    color(0,  0,  255),  // 1
+    color(0,  150,0),    // 2
+    color(135,0,  0),    // 3
+    color(0,  0,  40),   // 4
+    color(40, 0, 15),    // 5
+    color(70, 0, 95),    // 6
+    color(60),           // 7
+    color(0),            // 8
   };
   
   final float STROKE_WEIGHT = 2;
@@ -50,7 +50,7 @@ class Tile
   
   public void Display()
   {
-    ShowBox(); //<>//
+    ShowBox();
     if(state == State.OPENED && val > 0)
     {
       ShowVal();
@@ -66,8 +66,8 @@ class Tile
     if(!bomb)
     {
       stroke(0);
-      Color col = VALUES[val-1];
-      fill(col.R, col.G, col.B, col.A);
+      color col = VALUES[val-1];
+      fill(col);
       textSize(size*.5f);
       textAlign(CENTER);
       text(""+val, pos.x, pos.y + (size*.5f) * .5f, size, size);
@@ -90,12 +90,12 @@ class Tile
     strokeWeight(STROKE_WEIGHT);
     checkMouse();
     if(highlighted)
-      fill(HOVER.R, HOVER.G, HOVER.B);
-    else fill(IDLE.R, IDLE.G, IDLE.B);
+      fill(HOVER);
+    else fill(IDLE);
     
     if(state == State.OPENED)
       if(!bomb)
-        fill(OPENED.R, OPENED.G, OPENED.B);
+        fill(OPENED);
       else fill(255, 0, 0);
       
     rect(pos.x, pos.y, size, size);
@@ -118,9 +118,9 @@ class Tile
     else highlighted = false;
   }
   
-  public void Open()
+  public void Open() //<>//
   {
-    state = State.OPENED;  // Expand this so it works propery!
+    state = State.OPENED;
     for(Tile n : neighbours)
     {
       if(n.val == 0 && !n.bomb && n.state != State.OPENED)
@@ -143,6 +143,7 @@ class Tile
       }
     }
   }
+  
   
   public void Flag()
   {

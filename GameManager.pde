@@ -27,12 +27,13 @@ class GameManager
     gameState = GameState.MAIN_MENU;
     
     float txtFieldYOff = 50f;
-    float playBtnW = 200f;
+    float playBtnW = 150f;
     float playBtnYOff = 60;
-    gridWidthField = new TextField(0, height/2 - txtFieldYOff, width/3, 40f, "Width");
-    gridHeightField = new TextField(width/3, height/2 - txtFieldYOff, width/3, 40f, "Height");
-    mineCountField = new TextField(width - width/3, height/2 - txtFieldYOff, width/3, 40f, "Mines");
-    playButton = new PlayButton(width/2 - playBtnW/2, height / 2 + playBtnYOff, playBtnW, 50, "Play");
+    
+    gridWidthField = new TextField(50, height/2 - txtFieldYOff, width/3-50, 40f, "Width");
+    gridHeightField = new TextField(width/3 + 25, height/2 - txtFieldYOff, width/3 - 50, 40f, "Height");
+    mineCountField = new TextField(width - width/3 , height/2 - txtFieldYOff, width/3 - 50, 40f, "Mines");
+    playButton = new PlayButton(width/2 - playBtnW/2, height / 2 + playBtnYOff, playBtnW, 50, "P L A Y");
   }
   
   public void Update()
@@ -57,7 +58,6 @@ class GameManager
   
   void DisplayGame()
   {
-    background(0);
     gameGrid.Display();
   }
   
@@ -93,6 +93,7 @@ class GameManager
       gridWidth = parseInt(gridWidthField.text);
       gridHeight = parseInt(gridHeightField.text);
       mineCount = parseInt(mineCountField.text);
+      
       CreateGrid(true);
       gameState = GameState.GAME;
     }
