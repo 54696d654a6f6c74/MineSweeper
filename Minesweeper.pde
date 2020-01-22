@@ -30,7 +30,7 @@ void draw()
   smooth();
 }
 
-void keyTyped()
+void keyPressed()
 {
   if(testField.focus)
   {
