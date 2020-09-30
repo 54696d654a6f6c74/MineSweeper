@@ -57,6 +57,7 @@ class Button
 
 class RestartButton extends Button
 {
+  // This is not redundant, java is just dumb, like WTF?
   RestartButton(float x, float y, float w, float h, String text)
   {
     super(x, y, w, h, text);
@@ -65,13 +66,13 @@ class RestartButton extends Button
   
   public void Click()
   {
-    // Restart the game
     gm.Restart();
   }
 }
 
 class PlayButton extends Button
 {
+  
   PlayButton(float x, float y, float w, float h, String text)
   {
     super(x, y, w, h, text);

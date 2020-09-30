@@ -34,6 +34,7 @@ class GameManager
     gridHeightField = new TextField(width/3 + 25, height/2 - txtFieldYOff, width/3 - 50, 40f, "Height");
     mineCountField = new TextField(width - width/3 , height/2 - txtFieldYOff, width/3 - 50, 40f, "Mines");
     playButton = new PlayButton(width/2 - playBtnW/2, height / 2 + playBtnYOff, playBtnW, 50, "P L A Y");
+    restartButton = new RestartButton(width/2 - playBtnW/2, height - 70, playBtnW, 45, "R E S T A R T");
   }
   
   public void Update()
@@ -50,6 +51,7 @@ class GameManager
     else if(gameState == GameState.LOSS)
     {
       DisplayGame();
+      gameGrid.Uncover();
       DisplayRestart();
     }
     else if(gameState == GameState.MAIN_MENU)
@@ -65,12 +67,12 @@ class GameManager
   
   void DisplayRestart()
   {
-    
+    restartButton.Display();
   }
   
   void Restart()
   {
-    gameGrid.Uncover();
+    gameState = GameState.MAIN_MENU;
   }
   
   void DisplayMenu()

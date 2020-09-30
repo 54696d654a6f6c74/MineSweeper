@@ -58,4 +58,10 @@ void mouseReleased()
     if(gm.playButton.highlighted)
       gm.playButton.Click();
   }
+  
+  else if(gm.gameState == GameState.LOSS || gm.gameState == GameState.WIN)
+  {
+    if(gm.restartButton.highlighted)
+      gm.restartButton.Click();
+  }
 }
