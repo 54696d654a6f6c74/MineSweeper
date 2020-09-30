@@ -1,6 +1,6 @@
 class Grid
 {
-  final float BUFFER = 5; // pixels to buffer from closest edges
+  final float BUFFER = 100; // pixels to buffer from closest edges
  
   Tile[][] grid;
   Tile highlighed;
@@ -106,6 +106,17 @@ class Grid
     }
   }
   
+  public void Uncover()
+  {
+    for(int y = 0; y < h; y++)
+    {
+      for(int x = 0; x < w; x++)
+      {
+        grid[y][x].state = State.OPENED;
+      }
+    }
+  }
+  
   float calcOffset(float tileSize)
   {
     if((wider && !swapped) || (!wider && swapped))
@@ -185,6 +196,4 @@ class Grid
     
     return neighbours;
   }
-  
-  
 }

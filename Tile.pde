@@ -120,6 +120,12 @@ class Tile
   
   public void Open() //<>//
   {
+    if(gm.gameState != GameState.WIN &&
+    gm.gameState != GameState.LOSS)
+    {
+      if(bomb)
+        gm.gameState = GameState.LOSS;
+    }
     state = State.OPENED;
     for(Tile n : neighbours)
     {

@@ -45,9 +45,11 @@ class GameManager
     else if(gameState == GameState.WIN)
     {
       DisplayRestart();
+      DisplayGame();
     }
     else if(gameState == GameState.LOSS)
     {
+      DisplayGame();
       DisplayRestart();
     }
     else if(gameState == GameState.MAIN_MENU)
@@ -68,7 +70,7 @@ class GameManager
   
   void Restart()
   {
-    
+    gameGrid.Uncover();
   }
   
   void DisplayMenu()
@@ -88,7 +90,9 @@ class GameManager
   
   public void GameStart()
   {
-    if(gridWidthField.text != "" && gridHeightField.text != "" && mineCountField.text != "")
+    if(gridWidthField.text != "" &&
+    gridHeightField.text != "" &&
+    mineCountField.text != "")
     {
       gridWidth = parseInt(gridWidthField.text);
       gridHeight = parseInt(gridHeightField.text);
