@@ -120,7 +120,17 @@ class Tile
   
   public void Open() //<>//
   {
-    if(gm.gameState != GameState.WIN &&
+    if(gm.gameGrid.first)
+    {
+      if(bomb)
+      {
+        gm.gameGrid.addMinesAtRandom(1);
+        bomb = false;
+        gm.gameGrid.calcTileValue();
+      }
+      gm.gameGrid.first = false;
+    }
+    else if(gm.gameState != GameState.WIN &&
     gm.gameState != GameState.LOSS)
     {
       if(bomb)

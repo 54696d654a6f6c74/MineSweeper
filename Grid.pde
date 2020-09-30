@@ -8,12 +8,13 @@ class Grid
   int w, h, mineCount;
   boolean wider;
   boolean swapped = false; // if one screen is wider but grid was too big to fit in it
+  boolean first = true;
   
   Grid(int w, int h)
   {
     this.w = w;
     this.h = h;
-    mineCount = mines;
+    //mineCount = mines;
     grid = new Tile[h][w];
     
     if(width > height)
@@ -22,13 +23,13 @@ class Grid
     
     float tileSize = calcTileSize();
     float offset = calcOffset(tileSize);
-    calcOffset(tileSize);
     createTile(tileSize, offset);
   }
   
   Grid(int w, int h, int mines)
   {
     this(w, h);
+    mineCount = mines;
     addMinesAtRandom(mines);
     calcTileValue();
   }

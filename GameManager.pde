@@ -45,8 +45,9 @@ class GameManager
     }
     else if(gameState == GameState.WIN)
     {
-      DisplayRestart();
       DisplayGame();
+      gameGrid.Uncover();
+      DisplayRestart();
     }
     else if(gameState == GameState.LOSS)
     {
